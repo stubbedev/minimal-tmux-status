@@ -39,8 +39,13 @@ status_left=$(get_tmux_option "@minimal-tmux-status-left" "#[bg=default,fg=black
 expanded_icon=$(get_tmux_option "@minimal-tmux-expanded-icon" ' 󰊓 ')
 show_expanded_icon_for_all_tabs=$(get_tmux_option "@minimal-tmux-show-expanded-icon-for-all-tabs" false)
 
+vpn_status=""
+if test -f "$HOME/.vpn_active"; then
+  vpn_status=" [vpn] "
+fi
+
 status_right_extra="$status_right$(get_tmux_option "@minimal-tmux-status-right-extra" '')"
-status_left_extra="$status_left$(get_tmux_option "@minimal-tmux-status-left-extra" '')"
+status_left_extra="$status_left$vpn_status$(get_tmux_option "@minimal-tmux-status-left-extra" '')"
 
 if [ "$right_state" = false ]; then
 	status_right_extra=""
